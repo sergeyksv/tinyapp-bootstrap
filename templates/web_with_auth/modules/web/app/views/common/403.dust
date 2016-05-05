@@ -1,0 +1,9 @@
+<div class="container signin-container" id="{_t_view.cid}">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 cols-xs-12" id="signinf">
+				 <div class="err-case active">Access forbidden.<br>
+				 	<a href="{_t_prefix}">Click here</a> to manually navigate home, or contact for support.
+				 </div>
+		</div>
+	</div>
+</div>

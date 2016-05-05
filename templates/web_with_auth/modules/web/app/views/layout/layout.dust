@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="utf-8">
+	<title>{title}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon" >
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link href="{_t_prefix}/css/style.css?rev={_t_rev}" rel="stylesheet">
+
+	<script src="{_t_prefix}/js/jquery.js"></script>
+	{?_t_tinelic.enable}
+	<script src="{_t_tinelic.protocol}://{_t_tinelic.host}/web/js/build/tinelic.js"></script>
+	<script>
+		(function () {
+			var _t_page = new Date();
+			Tinelic.config({
+				url: "{_t_tinelic.protocol}://{_t_tinelic.host}/collect/browser/{_t_tinelic.id}",
+				route: '{_t_route}',
+				_dtp: _t_page,
+				ajaxCallback: function (s, XHR) {
+					var re = /(^\/restapi\/[A-Za-z]+[0-9]+\w+\/)|(^\/restapi\/[0-9]+[A-Za-z]+\w+\/)/;
+					s.r = s.r.replace(/\/wire\/w[0-9]+/, "/wire")
+							.replace(/^\/restapi\/([^\/]+)\//, "/restapi/token/")
+							.replace(re, "/restapi/");
+				}
+			});
+			Raven.config("{_t_tinelic.protocol}://nah@{_t_tinelic.host}/collect/sentry/{_t_tinelic.id}", {
+				dataCallback: function (data) {
+					data._dtp = _t_page;
+					data._dt = new Date();
+					return data;
+				}
+			}).install();
+		})();
+		if (window.console === undefined) {
+			window.console = {log: function () {}, error: function () {}};
+		}
+	</script>
+	{/_t_tinelic.enable}
+</head>
+<body id="{_t_view.cid}" {?loginForm}class="not-authorized"{/loginForm}>
+	{@view name=_t_main_view rctx=_t_prefix/}
+
+	{#_t_env_production}
+	<script src="{_t_prefix}/js/build/require.js?rev={_t_rev}"></script>
+	{:else}
+	<script src="{_t_prefix}/app/require.js"></script>
+	{/_t_env_production}
+
+<script>
+	var reqctx = requirejs.config({
+		baseUrl: "{_t_prefix}/app",
+		context: "{_t_prefix}",
+		paths: {
+			"tson": "../tinyback/tson",
+			"prefixify": "../tinyback/prefixify",
+			"tinybone": "../tinybone",
+			"lodash": "../js/lodash",
+			"dust.core": "../js/dust",
+			"dust.parse": "../js/parser",
+			"dust.compile": "../js/compiler",
+			"dust-helpers":"../js/dust-helpers",
+			"safe": "../js/safe",
+			"moment": '../js/moment/moment',
+			"dustc": "../tinybone/dustc",
+			"text": "../js/text",
+			"jquery-cookie": "../js/jquery.cookie",
+			"jquery.blockUI": "../js/jquery.blockUI",
+			"bootstrap": "../js/bootstrap",
+			"md5":"../js/md5"
+		},
+		config: {
+			"tinybone/backadapter": {
+				_t_son: 'out'
+			},
+			"bootstrap-datepicker":{
+				lang:"pt_BR"
+			}
+		},
+		shim: {
+			"bootstrap":{
+				deps:["jquery"]
+			},
+			"bootstrap-datepicker":{
+				deps:["bootstrap","moment"]
+			}
+		}
+	});
+	requirejs.onError = function (err) {
+		if(window.Raven)
+			Raven.captureException(err);
+	};
+		define.amd.dust = true;
+
+	{?_t_GA.enable}
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];
+		a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	{?currentUser._id}
+	ga('create', '{_t_GA.id}',{userId:"{currentUser._id}"});
+	ga('set', 'dimension1', "{currentUser._id}");
+	{/currentUser._id}
+	{^currentUser._id}
+	ga('create', '{_t_GA.id}','auto');
+	{/currentUser._id}
+	ga('send', 'pageview');
+	{/_t_GA.enable}
+	function trackEvent(event){
+		{?_t_GA.enable}
+		var params = ['send','event',event.category,event.action];
+		if(event.label){
+			params.push(event.label);
+			if(event.value){
+				params.push(parseInt(event.value));
+			}
+		}
+		ga.apply(ga,params);
+		{/_t_GA.enable}
+	};
+	function trackPageView(path){
+		{?_t_GA.enable}
+		ga('send', 'pageview',path);
+		{/_t_GA.enable}
+	};
+	function resetAnalytics(){
+	};
+
+	$.getJSON("{_t_prefix}/app/wire/{_t_unique}", function (wire) {
+		reqctx([{#_t_env_production}"{_t_prefix}/js/build/app.js?rev={_t_rev}","{_t_prefix}/js/build/routes/main.js?rev={_t_rev}"{/_t_env_production}], function () {
+			define("backctx", "/restapi/");
+			define("jquery", [], function () {
+				return window.jQuery;
+			});
+			reqctx(["app"], function (App) {
+				(new App()).init(wire);
+			});
+		});
+	});
+</script>
+</body>
+</html>

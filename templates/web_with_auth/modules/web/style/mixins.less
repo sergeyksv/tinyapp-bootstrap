@@ -1,0 +1,38 @@
+.align-self(@val:center) {
+	-webkit-align-self: @val;
+					align-self: @val;
+}
+
+.flex() {
+	display: -webkit-flex;
+	display: flex;
+}
+
+.justify-content(@val){
+	-webkit-justify-content: @val;
+					justify-content: @val;
+}
+
+.align-content(@val){
+	-webkit-align-content: @val;
+					align-content: @val;
+}
+
+.align-items(@val){
+	-webkit-align-items: @val;
+					align-items: @val;
+}
+
+.flex-grow(@val){
+	-webkit-flex-grow: @val;
+					flex-grow:@val;
+}
+
+
+
+.user-select(@select) {
+  -webkit-user-select: @select;
+     -moz-user-select: @select;
+      -ms-user-select: @select; // IE10+
+          user-select: @select;
+}

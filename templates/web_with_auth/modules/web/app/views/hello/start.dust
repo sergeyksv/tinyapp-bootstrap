@@ -1,0 +1,6 @@
+{>"views/base"/}
+{<main}
+<div id="{_t_view.cid}">
+	<h1>Hello World</h1>
+</div>
+{/main}

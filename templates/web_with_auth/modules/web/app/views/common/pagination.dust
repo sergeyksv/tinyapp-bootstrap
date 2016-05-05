@@ -1,0 +1,14 @@
+<div id="{_t_view.cid}">
+	{#pagination}
+	<nav class="text-center">
+	<ul class="pagination">
+		<li class="disabled"><span>{count} total</span></li>
+		<li{?first} class="disabled"{/first}><a href="{?first}#{/first}{^first}{baseUrlWithQueryString}page={prev}{/first}">&#9668;</a></li>
+		{#pages}
+		<li{?active} class="active"{/active}><a href="{baseUrlWithQueryString}page={page}">{label}</a></li>
+		{/pages}
+		<li{?last} class="disabled"{/last}><a href="{?last}#{/last}{^last}{baseUrlWithQueryString}page={next}{/last}">&#9658;</a></li>
+	</ul>
+</nav>
+	{/pagination}
+</div>

@@ -1,0 +1,9 @@
+[
+	{
+		"_id":"564dcd2be4b011db697626cf",
+		"name":"Admin 1",
+		"login":"admin1",
+		"password":"admin1",
+		"role":"admin"
+	}
+]

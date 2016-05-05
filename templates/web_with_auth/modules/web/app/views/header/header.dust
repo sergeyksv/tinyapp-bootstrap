@@ -1,0 +1,15 @@
+<div id="{_t_view.cid}" class="row header-main-row">
+	<div class="col-xs-2">
+		<a href="{_t_prefix}">My logo</a>
+	</div>
+	<div class="col-xs-2 col-xs-offset-8">
+		<div class="btn-group profile-btn-group">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				{currentUser.login} <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a href="#" class="logout" >Logout</a></li>
+			</ul>
+		</div>
+	</div>
+</div>

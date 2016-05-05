@@ -1,0 +1,23 @@
+<div class="container signin-container" id="{_t_view.cid}">
+	<div class="panel login-panel">
+			<div class="panel-body">
+					<form class="form-signin">
+							<div class="form-group">
+									<label for="name">Login</label>
+									<input id="name" name="login" class="form-control" autocomplete="off">
+							</div>
+							<div class="form-group">
+									<label for="pass">Password</label>
+									<input id="pass" name="password" type="password" class="form-control">
+							</div>
+							<div class="err-case err-case-{_t_view.cid}"></div>
+							<div class="btns-panel">
+								<button id="press" type="submit" class="btn btn-primary">
+										<span class="glyphicon glyphicon-log-in"></span>
+									Enter
+								</button>
+							</div>
+					</form>
+			</div>
+	</div>
+</div>

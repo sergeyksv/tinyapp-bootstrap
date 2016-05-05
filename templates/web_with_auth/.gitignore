@@ -1,0 +1,8 @@
+node_modules
+local-config.js
+*.swp
+*.log
+*.pem
+modules/*/public/css
+modules/*/public/js/build
+.eslintrc

@@ -1,0 +1,11 @@
+<div id="{_t_view.cid}" class="container">
+		<header id="app-header" >
+			{@view name="views/header/header" locals-req=_t_req /}
+		</header>
+		<main id="app-main">
+			{+main/}
+		</main>
+		<footer id="app-footer">
+			{+footer/}
+		</footer>
+</div>

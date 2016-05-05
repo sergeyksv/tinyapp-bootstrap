@@ -1,0 +1,12 @@
+<div class="container signin-container" id="{_t_view.cid}">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 cols-xs-12" id="signinf">
+			<div class="signin-title"><img src="{_t_prefix}/img/emote_whitecloud_450_150.png" width="450px" height="150px" ></div>
+			<form role="form">
+				 <div class="err-case active">Sorry, your requested page was not found. We will now redirect you to the home page.<br>
+				 <a href="{_t_prefix}">Click here</a> to manually navigate home, or contact <a href="mailto:help@emotenow.com">help@emotenow.com</a> for support.
+				 </div>
+			</form>
+		</div>
+	</div>
+</div>
