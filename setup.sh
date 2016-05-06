@@ -24,6 +24,7 @@ mkdir $PROJECT_PATH
 DEFAULT_TEMPLATE="web_with_auth"
 
 cp -r templates/$DEFAULT_TEMPLATE/* $PROJECT_PATH/
+cp templates/$DEFAULT_TEMPLATE/.gitignore $PROJECT_PATH/.gitignore
 
 cd $PROJECT_PATH
 
