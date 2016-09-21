@@ -1,7 +1,8 @@
 "use strict";
 
-var path = require('path'),
-	_ = require('lodash');
+const path = require('path'),
+	_ = require('lodash'),
+	argv = require('yargs').argv;
 
 module.exports.readConfig = function(cb) {
 	var dirPath = __dirname + "/../../",
@@ -9,6 +10,10 @@ module.exports.readConfig = function(cb) {
 		lcfg = require(path.resolve(dirPath, "local-config.js"));
 
 	mcfg =  _.merge({}, mcfg, lcfg);
+
+	if(argv.config)
+		mcfg = _.merge({}, mcfg, require(path.resolve(dirPath, argv.config)));
+		
 	if(mcfg.monitoring.tinelic.enable && !mcfg.app.autotest){
 		process.env['NEW_RELIC_HOME'] = path.resolve(dirPath + 'config/', "nr");
 		process.env['NEW_RELIC_APP_NAME'] = mcfg.monitoring.tinelic.id;

@@ -3,8 +3,8 @@
 			<div class="panel-body">
 					<form class="form-signin">
 							<div class="form-group">
-									<label for="name">Login</label>
-									<input id="name" name="login" class="form-control" autocomplete="off">
+									<label for="name">Email</label>
+									<input id="name" name="email" class="form-control" autocomplete="off">
 							</div>
 							<div class="form-group">
 									<label for="pass">Password</label>

@@ -16,7 +16,7 @@ define([
 				e.preventDefault();
 				var $form = $(e.currentTarget);
 				var data = {
-					login:$form.find("input[name='login']").val(),
+					email:$form.find("input[name='email']").val(),
 					password:$form.find("input[name='password']").val()
 				};
 				var self = this;

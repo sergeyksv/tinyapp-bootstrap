@@ -1,22 +1,14 @@
 var	count = 0;
-var pok_readConfig = require('pok_utils').readConfig;
-var safe = require('safe');
+const pok_readConfig = require('pok_utils').readConfig,
+	safe = require('safe'),
+	argon2 = require('argon2');
 
 var tinyback = require('tinyback'),
 	ctx = {api:{}},
 	cols={},db;
 
-	function getHash(p, salt) {
-		var crypto = require('crypto');
-		var shasum = crypto.createHash('sha512');
-		shasum.update(p);
-		shasum.update(salt);
-		var d = shasum.digest('hex');
-		return d;
-	}
 
-var mongodb = tinyback.mongodb(),
-	CustomError = tinyback.CustomError;
+var mongodb = tinyback.mongodb();
 safe.run(function(cb){
 	safe.series([
 		function(cb){
@@ -62,12 +54,18 @@ safe.run(function(cb){
 							cb();
 						} else {
 							if (u.password.length < 100) {
-								cols.users.update(
-									{"_id": u._id },
-									{ $set: { "password": getHash(u.password, ctx.cfg.salt) } },
-									cb
-								);
-								count++;
+								argon2.generateSalt().then(salt => {
+									argon2.hash(u.password, salt, {})
+									.then(hash => {
+										cols.users.update(
+											{"_id": u._id },
+											{ $set: { "password": hash } },
+											cb
+										);
+										count++;
+									})
+									.catch(cb);
+								});
 							}
 							else{
 								cb();

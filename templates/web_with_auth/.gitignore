@@ -5,4 +5,3 @@ local-config.js
 *.pem
 modules/*/public/css
 modules/*/public/js/build
-.eslintrc
