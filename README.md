@@ -7,6 +7,7 @@ Frontend - https://github.com/sergeyksv/tinybone
 
 * Mongodb 3.0+
 * NodeJS 4.x
+* GIT
 * Unix Bash
 
 ## Installation Guide
