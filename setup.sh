@@ -47,6 +47,6 @@ git add *
 git add .gitignore
 git add .eslintrc
 git commit -m "initial commit"
-git subtree add --prefix modules/tinyback git@git.pushok.com:pushok/tinyback.git json_params --squash
-git subtree add --prefix modules/tinybone git@git.pushok.com:pushok/tinybone.git json_params --squash
+git subtree add --prefix modules/tinyback git@git.pushok.com:pushok/tinyback.git master --squash
+git subtree add --prefix modules/tinybone git@git.pushok.com:pushok/tinybone.git master --squash
 npm i

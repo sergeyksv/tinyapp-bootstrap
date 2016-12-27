@@ -6,6 +6,7 @@ var sstatic = require('serve-static');
 var lessMiddleware = require('less-middleware');
 
 module.exports.deps = ['users'];
+module.exports.reqs = {router:true, globalUse:true};
 
 var mName = "web",
 	MODULE_PREFIX = '/'+mName;

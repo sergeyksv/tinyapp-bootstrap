@@ -73,31 +73,36 @@ module.exports.init = function (ctx_, cb) {
 		}
 	});
 
-	ctx.api.obac.register(['user_edit'], 'users', {
-		permission: 'getPermissionForUserEdit'
-	}),
-
-	ctx.api.obac.register(['user_new'], 'users', {
-		permission: 'getPermissionForUserNew'
-	}),
-
-	ctx.api.mongo.getDb({}, safe.sure(cb, function (db) {
-		safe.series({
-			"users": function (cb) {
-				db.collection("users", safe.sure(cb, function (col) {
-					safe.parallel([
-						function (cb) {
-							ctx.api.mongo.ensureIndex(col, {"tokens.token": 1}, cb);
-						},
-						function (cb) {
-							ctx.api.mongo.ensureIndex(col, {"email": 1}, {unique:true}, cb);
-						}
-					], safe.sure(cb, col));
-				}));
-			}
-		}, safe.sure(cb, function (cols_) {
-			cols = cols_;
-			cb(null, { api: api});
+	safe.parallel([
+		function (cb) {
+			ctx.api.obac.register(['user_edit'], 'users', {
+				permission: 'getPermissionForUserEdit'
+			},cb);
+		},
+		function (cb) {
+			ctx.api.obac.register(['user_new'], 'users', {
+				permission: 'getPermissionForUserNew'
+			},cb);
+		}
+	], safe.sure(cb, function () {
+		ctx.api.mongo.getDb({}, safe.sure(cb, function (db) {
+			safe.series({
+				"users": function (cb) {
+					db.collection("users", safe.sure(cb, function (col) {
+						safe.parallel([
+							function (cb) {
+								ctx.api.mongo.ensureIndex(col, {"tokens.token": 1}, cb);
+							},
+							function (cb) {
+								ctx.api.mongo.ensureIndex(col, {"email": 1}, {unique:true}, cb);
+							}
+						], safe.sure(cb, col));
+					}));
+				}
+			}, safe.sure(cb, function (cols_) {
+				cols = cols_;
+				cb(null, { api: api});
+			}));
 		}));
 	}));
 }
@@ -259,6 +264,7 @@ api.login = function (token, p, cb) {
 	cols.users.find({email:p.email},{_id:1,password:1}).toArray(safe.sure(cb,(res)=>{
 		if(!res.length || res.length > 1)
 			return cb(new FailedCredentialsError());
+
 		argon2.verify(res[0].password,p.password).then(match=>{
 			if(!match)
 				return cb(new FailedCredentialsError());

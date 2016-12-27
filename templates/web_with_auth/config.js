@@ -5,7 +5,7 @@ module.exports = {
 	},
 	mongo: {
 		main: {
-			db: "__NAME__",
+			db: "test1",
 			host: "localhost",
 			port: 27017,
 			scfg: {auto_reconnect: true, poolSize: 100},
@@ -29,9 +29,10 @@ module.exports = {
 			id: ""
 		}
 	},
-	salt: "__SALT__",
-	masterpass: "__MASTERPASS__",
+	salt: "Xssv05gmGUFi9Kb9jsMG0x4U9jE3buu1",
+	masterpass: "vj2Fd8vKZmISM13efUmnjjkLRQ8xr862",
 	upload: {
 		fileTypes: ["application/pdf", "image/jpeg", "image/png"]
-	}
+	},
+	restapi:{}
 };

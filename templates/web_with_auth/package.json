@@ -1,5 +1,5 @@
 {
-  "name": "__NAME__",
+  "name": "test1",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -24,13 +24,15 @@
     "mime": "^1.3.4",
     "moment": "^2.15.x",
     "mongodb": "~2.2.x",
-    "multer": "^0.1.7",
+    "multer": "^1.1.0",
     "newrelic": "^1.30.1",
     "requirejs": "~2.1.20",
     "requirejs-text": "^2.0.12",
     "safe": "^0.4.1",
     "serve-static": "^1.10.0",
-    "yargs": "^3.29.0"
+    "yargs": "^3.29.0",
+    "tinyhook":"~0.2.2",
+    "http-proxy":"~1.16.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
